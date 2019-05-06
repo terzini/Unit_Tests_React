@@ -7,7 +7,7 @@ import "./styles.css";
 function App() {
   return (
     <div className="App">
-      <ListContainer />
+      <ListContainer readyOnLoad={true} />
     </div>
   );
 }

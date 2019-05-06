@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import List from "./List";
-import { getData } from "./requests";
+import { getData, signal } from "./requests";
 
 const transformData = items =>
   items
@@ -20,12 +20,16 @@ async function loadData(setError, setItems, setIsLoading) {
 }
 
 const ListContainer = props => {
+  // const {readyOnLoad} = props;
   const [items, setItems] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     loadData(setError, setItems, setIsLoading);
+    return () => {
+      signal.cancel("Api is being canceled");
+    };
   }, []);
 
   const onClick = async e => {
